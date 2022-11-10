@@ -1,4 +1,5 @@
 
+import itertools
 import requests
 import json
 from bs4 import BeautifulSoup 
@@ -81,7 +82,11 @@ def login(driver) :
         #print("always")
         return """
 def csv_writer():
-    pass
+    today = date.today()
+    d1 = today.strftime("%d%m%Y")
+    csv_file = open(f'bulk/recipients_{d1}.csv', 'w', encoding='utf-8') 
+    writer = csv.writer(csv_file)
+    return writer
     
 def scrap(driver, url):   
     if login(driver):
@@ -107,27 +112,35 @@ def scrap(driver, url):
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='menu-nav ']//a[@class='menu-link']//span[@class='menu-text' and text()='Sent Messages']"))).click()
         """
         driver.get("https://click.weiserstamm.com/index.php/outbound")
-        logging.info("click")
-        time.sleep(100)
+        logging.info("redirect to Sent Messages")
+        #time.sleep(100)
         
 scrap(driver, url)
 #get_links(url)
 
-df_list = []
+df_list = {}
 t_header = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'th')))
 columns = [x.text.strip() for x in t_header if len(x.text.strip())> 0]
 logging.info(columns)
 rows = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'tr')))
-for row in rows:
+
+#for row in rows:
+for row in itertools.islice(rows, 10):
     tds = row.find_elements(By.TAG_NAME, 'td')
-    if len(tds) > 1 and len(row.text) > 5:
-        print([x.text.strip() for x in tds if len(x.text) > 0])
+    if len(tds) > 1: #and len(row.text) > 5:
+        #print([x.text.strip() for x in tds if len(x.text) > 0])
+        logging.info([x.text.strip() for x in tds if len(x.text) > 0])
         df_list.append(([x.text.strip() for x in tds if len(x.text) > 0]))
-        print('_______________________')
+        logging.info('_______________________')
 
 df = pd.DataFrame(df_list, columns = columns)
+logging.info(df)
 #display(df)
-df.to_csv('recipients_10112022.csv')
+#df.to_csv('bulk/recipients_10112022.csv')
+writer = csv_writer()
+writer.writerow(df_list.values())
+
+
 
 
 
