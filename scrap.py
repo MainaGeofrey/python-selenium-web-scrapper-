@@ -62,14 +62,14 @@ def login() :
         #username.send_keys(os.getenv('username_news'))
         #password.send_keys(os.getenv('password_news'))
         email_element.clear()
-        email_element.send_keys('jeffdevops6@gmail.com')
+        email_element.send_keys('')
 
 
         #driver.find_element_by_xpath("//*[@type='submit']").click()
         driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
         password_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'password')))
-        password_element.send_keys('@NemBn!J.rQU3CB')
+        password_element.send_keys('')
 
 
         #driver.find_element(By.XPATH, '//button[@type="submit"]').click()

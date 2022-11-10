@@ -22,145 +22,112 @@ from selenium.common.exceptions import StaleElementReferenceException
 from json import JSONDecoder
 from fake_useragent import UserAgent
 from selenium.webdriver.chrome.service import Service
+import logging
+import logging.handlers
+import os
+import pandas as pd 
+ 
+handler = logging.handlers.WatchedFileHandler(
+    os.environ.get("LOGFILE", "log/python.log"))
+formatter = logging.Formatter(logging.BASIC_FORMAT)
+handler.setFormatter(formatter)
+root = logging.getLogger()
+  #The application will now log all messages with level INFO or above to file
+root.setLevel(os.environ.get("LOGLEVEL", "INFO"))
+root.addHandler(handler)
 
 
 
-url = 'https://nation.africa/kenya/news'
+url = 'https://click.weiserstamm.com'
 
 #open browser
-'''
-chrome_options = Options();
-chrome_options.add_argument("--window-size=1920,1080");
-chrome_options.headless = True
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-prefs = {"profile.managed_default_content_settings.images": 2}
-chrome_options.add_experimental_option("prefs", prefs)
-ua = UserAgent()
-userAgent = ua.random
-chrome_options.add_argument(f'user-agent={userAgent}')
-#driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-#s = Service( webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options))
-#s=Service(ChromeDriverManager().install(), options=chrome_options) '''
-
-"""
-s=Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=s)  """
-#driver.get(url)
-
-#login to website
-#sign_in_link = driver.find_element_by_link_text('Sign In')
-#sign_in_link = driver.find_element(By.LINK_TEXT, "")
-#sign_in_link = driver.find_element(By.CLASS_NAME, 'account-menu_login-btn')
-
-#driver function
 def driver_setup():
     try:
         s=Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=s)
     except Exception as e:
-        print("failed log in", e)
-        time.sleep(1)
+        logging.error("logOpeningBrowserFail:",e)
         pass
     else:
+        logging.info("logOpenBrowserSuccess")
         return driver
 
 
 driver = driver_setup()
 def login(driver) :
     try:
-        driver.get("https://nation.africa/kenya/account/signin")
+        driver.get("https://click.weiserstamm.com/index.php/site/login")
 
-
-        email_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'multiAuthInput')))
-        #password = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'password')))
+        input_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginform-username')))
         #username.send_keys(os.getenv('username_news'))
         #password.send_keys(os.getenv('password_news'))
-        email_element.clear()
-        email_element.send_keys('jeffdevops6@gmail.com')
+        input_element.clear()
+        input_element.send_keys('gikenoh_sms')
+        
+        password_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginform-password')))
+        password_element.clear()
+        password_element.send_keys('t2E5NGz81BV#23!@34')
 
-
-        #driver.find_element_by_xpath("//*[@type='submit']").click()
         driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
-        password_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'password')))
-        password_element.send_keys('@NemBn!J.rQU3CB')
-
-
-        #driver.find_element(By.XPATH, '//button[@type="submit"]').click()
-        sign_in_link = driver.find_element(By.ID, 'loginRecaptcha')
-        #sign_in_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginRecaptcha')))
-        sign_in_link.click()
        # time.sleep(100)
     except Exception as e:
-        print("failed log in", e)
-        time.sleep(1)
+        logging.error("logLogInFail:",e)
         pass
     else:
-        print("log in success:")
-
+        logging.info("logLogInSuccess")
         return True
 """    finally:
         #print("always")
         return """
+def csv_writer():
+    pass
     
 def scrap(driver, url):   
     if login(driver):
-        # set csv
+
         driver.get(url)
-            
+        
+        # set csv  
         today = date.today()
         d1 = today.strftime("%d%m%Y")
-        csv_file = open(f'data_news/wsj_articles_{d1}.csv', 'w', encoding='utf-8') 
+        csv_file = open(f'bulk/recipients_{d1}.csv', 'w', encoding='utf-8') 
         writer = csv.writer(csv_file)
-
-        #access all news teasers
-        #link_lists = driver.find_elements(By.TAG_NAME, 'section')
-        link_lists = driver.find_elements(By.CLASS_NAME, 'teasers-row')
-       # link_lists = driver.find_elements(By.XPATH, '//section[@class="teasers-row"][@href]')
-        link_lists_total = len(link_lists)
-        print("total news is:", link_lists_total)
         
-        #collect all link list of latest news
+        """
+        aside = driver.find_elements(By.ID, 'kt_aside_menu')
+        scroll = 0
+        while scroll < 3:  # this will scroll 3 times
+            driver.execute_script('arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;',aside)
+            scroll += 1
+            # add appropriate wait here, of course. 1-2 seconds each
+            logging.info("scroll")
+            time.sleep(200)
+
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='menu-nav ']//a[@class='menu-link']//span[@class='menu-text' and text()='Sent Messages']"))).click()
+        """
+        driver.get("https://click.weiserstamm.com/index.php/outbound")
+        logging.info("click")
+        time.sleep(100)
         
-        #for i in range(0, link_lists_total):
-        for i in driver.find_elements(By.CLASS_NAME, 'teasers-row'):
-            article_dict = {}
-            
-            try:
-                link_list = None
-                #link_list = WebDriverWait(driver, 10).until(EC.element_located_to_be_selected((By.XPATH, './/h3[@class="teaser-image-large_title title-medium "]')))
-                #link_list =driver.find_element(By.CLASS_NAME, 'teaser-image-large').get_attribute('href')
-                link_list =i.find_element(By.XPATH, '//a[@class="teaser-image-large"]').get_attribute('href')
-                #time.sleep(2)
-                #url_w = link_list[i].get_attribute('href')
-                article_dict['link'] = link_list
-                print(article_dict)
-               # link_lists[i].click()
-                #driver.get(link_list)
-            except Exception as e:
-                print("failed scrap", e)
-                time.sleep(1)
-                pass
-            
-def soupScrap(driver, url):
-    pass
-
-def get_links(url):
-    LINKS = []
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, features='lxml')
-    for html in soup.find_all('section', class_='teasers-row'):
-        section = html.find('section')
-        link = html.find('a', {"class": "teaser-image-large"}).get('href')
-       # link_list =driver.find_element(By.CLASS_NAME, 'teaser-image-large').get_attribute('href')
-
-        print(link)  
-        break  
-    return LINKS        
-
 scrap(driver, url)
 #get_links(url)
+
+df_list = []
+t_header = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'th')))
+columns = [x.text.strip() for x in t_header if len(x.text.strip())> 0]
+logging.info(columns)
+rows = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'tr')))
+for row in rows:
+    tds = row.find_elements(By.TAG_NAME, 'td')
+    if len(tds) > 1 and len(row.text) > 5:
+        print([x.text.strip() for x in tds if len(x.text) > 0])
+        df_list.append(([x.text.strip() for x in tds if len(x.text) > 0]))
+        print('_______________________')
+
+df = pd.DataFrame(df_list, columns = columns)
+#display(df)
+df.to_csv('recipients_10112022.csv')
 
 
 
