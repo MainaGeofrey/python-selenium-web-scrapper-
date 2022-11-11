@@ -1,0 +1,8 @@
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
+INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
+INFO:root:logOpenBrowserSuccess
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
+INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
+INFO:root:logOpenBrowserSuccess

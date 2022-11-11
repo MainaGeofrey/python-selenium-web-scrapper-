@@ -1,35 +1,158 @@
+
+import itertools
 import requests
-from bs4 import BeautifulSoup
+import json
+from bs4 import BeautifulSoup 
 import pandas as pd
-from urllib.parse import urlencode
-import csv
-import numpy as np
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
-import time
-import datetime
 import os
-
+import csv
+import time
+import sys
+import urllib.request
+from datetime import date
+from htmldate import find_date
+from dotenv import load_dotenv
+from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
+from json import JSONDecoder
+from fake_useragent import UserAgent
+from selenium.webdriver.chrome.service import Service
+import logging
+import logging.handlers
+import os
+import pandas as pd 
+ 
+handler = logging.handlers.WatchedFileHandler(
+    os.environ.get("LOGFILE", "log/python.log"))
+formatter = logging.Formatter(logging.BASIC_FORMAT)
+handler.setFormatter(formatter)
+root = logging.getLogger()
+  #The application will now log all messages with level INFO or above to file
+root.setLevel(os.environ.get("LOGLEVEL", "INFO"))
+root.addHandler(handler)
 
-s=Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=s)
 
 
-url = 'https://www.billboard.com/charts/hot-100/'
+url = 'https://click.weiserstamm.com'
 
-#page = requests.get(url)
+#open browser
+def driver_setup():
+    try:
+        s=Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=s)
+    except Exception as e:
+        logging.error("logOpeningBrowserFail:",e)
+        pass
+    else:
+        logging.info("logOpenBrowserSuccess")
+        return driver
 
-#print(page.text)
 
-#driver = webdriver.Chrome()
-driver.get(url)
-src = driver.page_source
-print(src)
-parser = BeautifulSoup(src, "lxml")
-table = parser.find("div", attrs= {"class":"o-chart-results-list-row-container"})
-table
+driver = driver_setup()
+def login(driver) :
+    try:
+        logging.info("ur")
+        driver.get("https://click.weiserstamm.com/index.php/site/login")
 
+        input_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginform-username')))
+        #username.send_keys(os.getenv('username_news'))
+        #password.send_keys(os.getenv('password_news'))
+        input_element.clear()
+        logging.info("nam")
+        input_element.send_keys('gikenoh_sms')
+        
+        password_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginform-password')))
+        password_element.clear()
+        logging.info("password")
+        password_element.send_keys('t2E5NGz81BV#23!@34')
+        logging.info("cli")
+        driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
-#driver.close()
+       # time.sleep(100)
+    except Exception as e:
+        logging.error("logLogInFail:",e)
+        pass
+    else:
+        logging.info("logLogInSuccess")
+        return True
+"""    finally:
+        #print("always")
+        return """
+def csv_writer():
+    today = date.today()
+    d1 = today.strftime("%d%m%Y")
+    name =  f'bulk/recipients_{d1}.xlsx'
+    csv_file = open(name, 'w', encoding='utf-8') 
+    writer = csv.writer(csv_file)
+    return name
+    
+def scrap(driver,url, file_name):   
+    if login(driver):
+        last = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Last']"))).get_attribute('data-page')
+        for i in range(0, last):
+            try:
+                # driver.get(url)        
+                """
+                aside = driver.find_elements(By.ID, 'kt_aside_menu')
+                scroll = 0
+                while scroll < 3:  # this will scroll 3 times
+                    driver.execute_script('arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;',aside)
+                    scroll += 1
+                    # add appropriate wait here, of course. 1-2 seconds each
+                    logging.info("scroll")
+                    time.sleep(200)
+
+                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='menu-nav ']//a[@class='menu-link']//span[@class='menu-text' and text()='Sent Messages']"))).click()
+                """
+                
+                driver.get("https://click.weiserstamm.com/index.php/outbound")
+                logging.info("redirect to Sent Messages")
+                #time.sleep(100)
+                
+                df_list = []
+                t_header = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'th')))
+                columns = [x.text.strip() for x in t_header if len(x.text.strip())> 0]
+                logging.info(columns)
+                rows = WebDriverWait(driver, 20).until(EC.presence_of_all_elements_located((By.TAG_NAME, 'tr')))
+
+                #for row in rows:
+                for row in itertools.islice(rows, 10):
+                    tds = row.find_elements(By.TAG_NAME, 'td')
+                    if len(tds) > 1: #and len(row.text) > 5:
+                        #print([x.text.strip() for x in tds if len(x.text) > 0])
+                        #logging.info([x.text.strip() for x in tds if len(x.text) > 0])
+                        df_list.append(([x.text.strip() for x in tds if len(x.text) > 0]))
+                        #logging.info('________________________')
+
+                df = pd.DataFrame(df_list, columns = columns)
+                df.to_csv('bulk/recipients_11112022.csv', encoding='utf-8', index=False)
+                logging.info("redirect")
+                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination  ']//li[@class='page-item']//a[@class='page-link' and text()='Last']"))).click()
+                logging.info("redirect last")
+                time.sleep(100)
+            except Exception as e:
+                logging.error("logScrapFail:",e)
+                pass
+            else:
+                logging.info("logScrapSuccess")
+                return True
+            
+            #next page
+            try:
+                next = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Last']")))
+                next.click()
+            except Exception as e:
+                logging.error("logNextPageFail:",e)
+                pass
+            else:
+                logging.info("logNextPageSucces")
+                return True
+file_name = csv_writer()        
+scrap(driver, url, file_name)
+
