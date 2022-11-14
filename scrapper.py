@@ -94,8 +94,10 @@ def csv_writer():
 def scrap(driver, url):   
     if login(driver):
         try:
-            last = 1                
-            for i in range(0, last):
+            last = 1 
+           # driver.get("https://click.weiserstamm.com/index.php/outbound")           
+            #for i in range(0, last):
+            for i in itertools.count(start=1):
                 # driver.get(url)
                 try:
                     """
@@ -123,8 +125,10 @@ def scrap(driver, url):
 
                     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='menu-nav ']//a[@class='menu-link']//span[@class='menu-text' and text()='Sent Messages']"))).click()
                     """
-                    driver.get("https://click.weiserstamm.com/index.php/outbound")
+
                     logging.info("redirect to Sent Messages")
+                    next_url = f"https://click.weiserstamm.com/index.php/outbound/index?page={i}&per-page=1000"
+                    driver.get(next_url)
                     #time.sleep(100)
                     
                     
@@ -145,14 +149,15 @@ def scrap(driver, url):
                             #logging.info([x.text.strip() for x in tds if len(x.text) > 0])
                             df_list.append(([x.text.strip() for x in tds if len(x.text) > 0]))
                             #logging.info('________________________')
-
+                            
+                    df_list = df_list[0:4]
                     df = pd.DataFrame(df_list, columns = columns)
                     #logging.info(df)
                     
                     try:
-                        file = csv_writer()
-                        logging.info(file)
-                        df.head(5)
+                        #file = csv_writer()
+                        #logging.info(file)
+                        
                         df.to_csv('bulk/recipients_11112022.csv', encoding='utf-8', index=False)
                     except Exception as e:
                         logging.error("logWriteFileFail:",e)
@@ -171,18 +176,20 @@ def scrap(driver, url):
                 
                             #next page
             try:
-                last = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Last']")))
-                last = last.get_attribute("data-page")
+
+               # time.sleep(100)
+                #last = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Last']")))
+               # last = last.get_attribute("data-page")
                 logging.info("last")
-                logging.info(last)
+               # logging.info(last)
                 
-                next = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Last']")))
-                next.click()
+                #next = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='pagination']//li[@class='page-item']//a[@class='page-link' and text()='Next']")))
+                #next.click()
             except Exception as e:
                 logging.error("logNextPageFail:",e)
                 
             else:
-                logging.info("logNextPageSucces")
+                logging.info("logNextPageSuccess")
                 #return 
             
         except Exception as e:
