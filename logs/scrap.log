@@ -1,4 +1,17 @@
 INFO:WDM:====== WebDriver manager ======
+
+
+
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
+INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
+INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:WDM:====== WebDriver manager ======
 INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
 INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
 INFO:root:logOpenBrowserSuccess
@@ -7,176 +20,73 @@ INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
 INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
 INFO:root:logOpenBrowserSuccess
 INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:redirect to page 1
+
+
+
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
-INFO:root:bulk/recipients_11112022.csv
+INFO:root:2022-11-14 14:57:15.400551
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
+INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
+INFO:root:logOpenBrowserSuccess
+INFO:root:2022-11-14 14:57:17.332260
+INFO:root:logLogInSuccess
+INFO:root:2022-11-14 14:58:46.353144
+
+INFO:root:2022-11-14 14:58:46.353303
+INFO:root:redirect to page 1
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:07:23.841171
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:root:logScrapSuccess
-
-
-
-
-
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:07:23.856349
+INFO:root:redirect to page 2
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
-INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:14:17.674977
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:root:logScrapSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:About to download new driver from https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip
-INFO:WDM:Driver has been saved in cache [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304]
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:14:17.684512
+INFO:root:redirect to page 3
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:22:06.150994
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:root:logScrapSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:22:06.161100
+INFO:root:redirect to page 4
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:30:57.753243
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:root:last
-INFO:root:logNextPageSuccess
-INFO:root:logScrapSuccess
-
-
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:30:57.761720
+INFO:root:redirect to page 5
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:38:25.685388
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-
-
-
-
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:38:25.695752
+INFO:root:redirect to page 6
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:45:29.204716
 INFO:root:logWriteFileSuccess
 INFO:root:logTableScrapSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-
-
-
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:WDM:====== WebDriver manager ======
-INFO:WDM:Get LATEST chromedriver version for google-chrome 107.0.5304
-INFO:WDM:Driver [/home/jeff/.wdm/drivers/chromedriver/linux64/107.0.5304/chromedriver] found in cache
-INFO:root:logOpenBrowserSuccess
-INFO:root:logLogInSuccess
-INFO:root:redirect to Sent Messages
+INFO:root:2022-11-14 15:45:29.212110
+INFO:root:redirect to page 7
 INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 15:53:38.740329
+INFO:root:logWriteFileSuccess
+INFO:root:logTableScrapSuccess
+INFO:root:2022-11-14 15:53:38.752295
+INFO:root:redirect to page 8
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 16:01:47.964196
+INFO:root:logWriteFileSuccess
+INFO:root:logTableScrapSuccess
+INFO:root:2022-11-14 16:01:47.975114
+INFO:root:redirect to page 9
+INFO:root:['#', 'Message Content', 'Source Address', 'Msisdn', 'First Send', 'Status Code', 'Status Message', 'Date Created']
+INFO:root:2022-11-14 16:10:07.223040
+INFO:root:logWriteFileSuccess
+INFO:root:logTableScrapSuccess
+INFO:root:2022-11-14 16:10:07.234879
+INFO:root:redirect to page 10

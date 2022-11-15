@@ -9,7 +9,7 @@ import csv
 import time
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime
 from htmldate import find_date
 from dotenv import load_dotenv
 from selenium import webdriver
@@ -46,11 +46,12 @@ USERNAME = "gikenoh_sms"
 #open browser
 def driver_setup():
     try:
+        logging.info(datetime.now())
         s=Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=s)
     except Exception as e:
         logging.error("logOpeningBrowserFail:",e)
-        pass
+        logging.info(datetime.now())
     else:
         logging.info("logOpenBrowserSuccess")
         return driver
@@ -59,6 +60,7 @@ def driver_setup():
 driver = driver_setup()
 def login(driver) :
     try:
+        logging.info(datetime.now())
         driver.get("https://click.weiserstamm.com/index.php/site/login")
 
         input_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'loginform-username')))
@@ -79,6 +81,7 @@ def login(driver) :
         return False
     else:
         logging.info("logLogInSuccess")
+        logging.info(datetime.now())
         return True
 """    finally:
         #print("always")
@@ -125,8 +128,8 @@ def scrap(driver, url):
 
                     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//ul[@class='menu-nav ']//a[@class='menu-link']//span[@class='menu-text' and text()='Sent Messages']"))).click()
                     """
-
-                    logging.info("redirect to Sent Messages")
+                    logging.info(datetime.now())
+                    logging.info(f"redirect to page {i}")
                     next_url = f"https://click.weiserstamm.com/index.php/outbound/index?page={i}&per-page=1000"
                     driver.get(next_url)
                     #time.sleep(100)
@@ -150,17 +153,18 @@ def scrap(driver, url):
                             df_list.append(([x.text.strip() for x in tds if len(x.text) > 0]))
                             #logging.info('________________________')
                             
-                    df_list = df_list[0:4]
+                   # df_list = df_list[0:4]
                     df = pd.DataFrame(df_list, columns = columns)
                     #logging.info(df)
                     
                     try:
                         #file = csv_writer()
                         #logging.info(file)
-                        
-                        df.to_csv('bulk/recipients_11112022.csv', encoding='utf-8', index=False)
+                        logging.info(datetime.now())
+                        df.to_csv('bulk/recipients_11112022.csv', mode='a', encoding='utf-8', index=False)
                     except Exception as e:
                         logging.error("logWriteFileFail:",e)
+                        logging.info(datetime.now())
                         return
                     
                     else:
