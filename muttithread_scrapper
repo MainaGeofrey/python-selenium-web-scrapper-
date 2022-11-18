@@ -1,4 +1,5 @@
 
+from concurrent.futures import ThreadPoolExecutor
 import itertools
 import requests
 import json
@@ -27,9 +28,7 @@ import logging
 import logging.handlers
 import os
 import pandas as pd 
-
-
-
+import numpy as np
  
 handler = logging.handlers.WatchedFileHandler(
     os.environ.get("LOGFILE", "logs/scrap.log"))
@@ -48,7 +47,6 @@ load_dotenv()
 PASSWORD = os.environ.get('PASSWORD')
 USERNAME = os.environ.get('USERNAME')
 
-
 #open browser
 def driver_setup():
     try:
@@ -63,6 +61,7 @@ def driver_setup():
     else:
         logging.info("logOpenBrowserSuccess")
         return driver
+
 
 driver = driver_setup()
 def login(driver) :
@@ -101,18 +100,17 @@ def csv_writer():
     #writer = csv.writer(csv_file)
     return name
     
-def scrap(driver, url):   
-    if login(driver):
+def scrap(driver, url_list):   
+  #  if login(driver):
         try:
-           # driver.get("https://click.weiserstamm.com/index.php/outbound")           
-            #for i in range(0, last):
-            for i in itertools.count(start=1):
+            for url in url_list:
+            #for i in itertools.count(start=1):
                 # driver.get(url)
                 try:
                     logging.info(datetime.now())
-                    logging.info(f"redirect to page {i}")
-                    next_url = f"https://click.weiserstamm.com/index.php/outbound/index?page={i}&per-page=1000"
-                    driver.get(next_url)
+                    logging.info(f"redirect to page {url_list.index(url)}")
+                    #next_url = f"https://click.weiserstamm.com/index.php/outbound/index?page={i}&per-page=1000"
+                    driver.get(url)
                     #time.sleep(100)
                     
                     
@@ -184,9 +182,42 @@ def scrap(driver, url):
             return 
 
         
-scrap(driver, url)
-# exit the browser
-driver.quit()
+#scrap(driver, url)
+def fetcher(list, url):
+    pass
+
+def crawler(driver):
+    login(driver)
+    driver.get("https://click.weiserstamm.com/index.php/outbound")
+    last = int(driver.find_element(By.LINK_TEXT, 'Last').get_attribute("data-page"))
+    
+    url_list = []
+    num = 1
+    last = last + num
+    logging.info(last)
+    for i in range(1, last):
+        next_url = f"https://click.weiserstamm.com/index.php/outbound/index?page={i}&per-page=1000"
+        url_list.append(next_url)
+        
+    return url_list, last 
+
+if login(driver):    
+    url_list, last = crawler(driver)
+    logging.info(last)
+    scraper = scrap(driver, url_list)
+    drivers = [driver_setup() for _ in range(4)]
+    chunks = np.array_split(np.arange(1,last ), 4)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        logging.info("start pool")
+        bucket = executor.map(scraper, chunks, drivers)
+        results = [item for block in bucket for item in block]
+        
+    [driver.quit() for driver in drivers]
+    logging.info(url_list) 
+else:   
+    # exit the browser
+    driver.quit()
 
 
 
